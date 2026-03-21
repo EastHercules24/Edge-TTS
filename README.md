@@ -6,4 +6,9 @@
 <p>Currently it supports: Http, (and that is currently everything there is :/)</p>
 <p>When calling on the browser:</p>
 <code>localhost:5000/?text=Your%20Text%20Here&voice=en-US-EmmaMultilingualNeural&filetype=mp3</code>
+<p>You can also add:</p>
+<code>&rate=+0%</code>
+<code>&volume=+0%</code>
+<code>&pitch=+0Hz</code>
+
 <p>That's it for now. :P</p>

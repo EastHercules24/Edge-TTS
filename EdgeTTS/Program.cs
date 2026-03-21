@@ -52,6 +52,9 @@ namespace EdgeTTS
                                 var re1 = request.QueryString["text"];
                                 var re2 = request.QueryString["voice"];
                                 var re3 = request.QueryString["filetype"];
+                                var re4 = request.QueryString["rate"];
+                                var re5 = request.QueryString["volume"];
+                                var re6 = request.QueryString["pitch"];
 
                                 // If one or more queries wasn't given, then give a default.
                                 if (re1 == null)
@@ -74,7 +77,7 @@ namespace EdgeTTS
                                 string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + ".mp3";
 
                                 // Convert text to speach and save.
-                                var request2 = new Communicate(re1.ToString(), voice: "en-US-EmmaMultilingualNeural");
+                                var request2 = new Communicate(re1.ToString(), voice: re2.ToString(), rate: re4.ToString(), volume: re5.ToString(), pitch: re6.ToString());
                                 request2.SaveAsync(current_file_name);
 
                                 // Check if file is being used by the tts.
