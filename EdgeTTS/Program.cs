@@ -3,6 +3,7 @@ using EdgeTTS.DotNet.Models;
 using System;
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -38,63 +39,73 @@ namespace EdgeTTS
                             // Output received requests.
                             Console.WriteLine($"Received request: {request.HttpMethod} {request.Url}");
 
-                            // Get queries.
-                            var re1 = request.QueryString["text"];
-                            var re2 = request.QueryString["voice"];
-                            var re3 = request.QueryString["filetype"];
-
-                            // If one or more queries wasn't given, then give a default.
-                            if (re1 == null) 
+                            // Block favicon requests
+                            if (request.Url.ToString().Contains("favicon.ico"))
                             {
-                                re1 = "Error. No Text Given!";
+                                Console.WriteLine("Blocked Url.");
+                                response.Close();
                             }
-                            if (re2 == null) 
+                            else
                             {
-                                re2 = "en-US-EmmaMultilingualNeural";
-                            }
-                            if (re3 == null)
-                            {
-                                re3 = "mp3";
-                            }
 
-                            // Output of the received queries.
-                            Console.WriteLine("Text: " + re1 + "\nVoice: " + re2 + "\nFiletype: " + re3);
+                                // Get queries.
+                                var re1 = request.QueryString["text"];
+                                var re2 = request.QueryString["voice"];
+                                var re3 = request.QueryString["filetype"];
 
-                            // Combine the base directory and the file name.
-                            string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + ".mp3";
+                                // If one or more queries wasn't given, then give a default.
+                                if (re1 == null)
+                                {
+                                    re1 = "Error. No Text Given!";
+                                }
+                                if (re2 == null)
+                                {
+                                    re2 = "en-US-EmmaMultilingualNeural";
+                                }
+                                if (re3 == null)
+                                {
+                                    re3 = "mp3";
+                                }
 
-                            // Convert text to speach and save.
-                            var request2 = new Communicate(re1.ToString(), voice: "en-US-EmmaMultilingualNeural");
-                            request2.SaveAsync(current_file_name);
+                                // Output of the received queries.
+                                Console.WriteLine("Text: " + re1 + "\nVoice: " + re2 + "\nFiletype: " + re3);
 
-                            // Check if file is being used by the tts.
-                            bool fileInUse = IsFileInUse(current_file_name);
+                                // Combine the base directory and the file name.
+                                string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + ".mp3";
 
-                            Console.Write("Wait untill ready.");
-                            while (fileInUse)
-                            {
-                                fileInUse = IsFileInUse(current_file_name);
-                                Console.Write(".");
-                            }
+                                // Convert text to speach and save.
+                                var request2 = new Communicate(re1.ToString(), voice: "en-US-EmmaMultilingualNeural");
+                                request2.SaveAsync(current_file_name);
 
-                            // Now check after the loop if the file isn't used anymore.
-                            if (fileInUse == false)
-                            {
-                                Console.WriteLine("\nDone.");
-                                byte[] buffer = File.ReadAllBytes(current_file_name);
+                                // Check if file is being used by the tts.
+                                bool fileInUse = IsFileInUse(current_file_name);
 
-                                response.ContentLength64 = buffer.Length;
-                                response.ContentType = "audio/" + re3.ToString().ToLower();
+                                Console.Write("Wait untill ready.");
+                                while (fileInUse)
+                                {
+                                    fileInUse = IsFileInUse(current_file_name);
+                                    Console.Write(".");
+                                }
 
-                                System.IO.Stream output = response.OutputStream;
-                                output.Write(buffer, 0, buffer.Length);
-                                output.Close();
+                                // Now check after the loop if the file isn't used anymore.
+                                if (fileInUse == false)
+                                {
+                                    Console.WriteLine("\nDone.");
+                                    byte[] buffer = File.ReadAllBytes(current_file_name);
 
-                                File.Delete(current_file_name);
-                            }
-                            else // If it still in use... Yeah you're fucked.
-                            {
-                                Console.WriteLine("\nError: File was still in use!");
+                                    response.ContentLength64 = buffer.Length;
+                                    response.ContentType = "audio/" + re3.ToString().ToLower();
+
+                                    System.IO.Stream output = response.OutputStream;
+                                    output.Write(buffer, 0, buffer.Length);
+                                    output.Close();
+
+                                    File.Delete(current_file_name);
+                                }
+                                else // If it still in use... Yeah you're fucked.
+                                {
+                                    Console.WriteLine("\nError: File was still in use!");
+                                }
                             }
                         });
                     }
