@@ -61,7 +61,7 @@ namespace EdgeTTS
                             Console.WriteLine("Text: " + re1 + "\nVoice: " + re2 + "\nFiletype: " + re3);
 
                             // Combine the base directory and the file name.
-                            string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + "-" + DateTime.Now + ".mp3";
+                            string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + ".mp3";
 
                             // Convert text to speach and save.
                             var request2 = new Communicate(re1.ToString(), voice: "en-US-EmmaMultilingualNeural");
