@@ -10,5 +10,7 @@
 <code>&rate=+0%</code>
 <code>&volume=+0%</code>
 <code>&pitch=+0Hz</code>
+<code>&boundarytype=SentenceBoundary</code>
+<code>&proxy=...</code>
 
 <p>That's it for now. :P</p>

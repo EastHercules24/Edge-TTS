@@ -55,6 +55,8 @@ namespace EdgeTTS
                                 var re4 = request.QueryString["rate"];
                                 var re5 = request.QueryString["volume"];
                                 var re6 = request.QueryString["pitch"];
+                                var re7 = request.QueryString["boundarytype"];
+                                var re8 = request.QueryString["proxy"];
 
                                 // If the queries doesn't start with a + or a -, then add them.
                                 if (re4 != null && !re4.ToString().Contains("+"))
@@ -107,6 +109,14 @@ namespace EdgeTTS
                                 {
                                     re6 = "+0Hz";
                                 }
+                                if (re7 == null)
+                                {
+                                    re7 = "SentenceBoundary";
+                                }
+                                if (re8 == null)
+                                {
+                                    re8 = "";
+                                }
 
                                 // Output of the received queries.
                                 Console.WriteLine("Text: " + re1 + "\nVoice: " + re2 + "\nFiletype: " + re3);
@@ -115,7 +125,7 @@ namespace EdgeTTS
                                 string current_file_name = AppDomain.CurrentDomain.BaseDirectory + "/voice_" + re1 + "-" + re2 + ".mp3";
 
                                 // Convert text to speach and save.
-                                var request2 = new Communicate(re1.ToString(), voice: re2.ToString(), rate: re4.ToString(), volume: re5.ToString(), pitch: re6.ToString());
+                                var request2 = new Communicate(re1.ToString(), voice: re2.ToString(), rate: re4.ToString(), volume: re5.ToString(), pitch: re6.ToString(), boundaryType: re7.ToString(), proxy: re8.ToString());
                                 request2.SaveAsync(current_file_name);
 
                                 // Check if file is being used by the tts.
