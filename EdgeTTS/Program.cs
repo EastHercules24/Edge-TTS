@@ -57,27 +57,27 @@ namespace EdgeTTS
                                 var re6 = request.QueryString["pitch"];
 
                                 // If the queries doesn't start with a + or a -, then add them.
-                                if (!re4.ToString().Contains("+") & re4 != null)
+                                if (re4 != null && !re4.ToString().Contains("+"))
                                 {
                                     re4 = "+" + re4.Substring(2);
                                 }
-                                else if (!re4.ToString().Contains("-") & re4 != null)
+                                else if (re4 != null && !re4.ToString().Contains("-"))
                                 {
                                     re4 = "-" + re4.Substring(2);
                                 }
-                                if (!re5.ToString().Contains("+") & re5 != null)
+                                if (re5 != null && !re5.ToString().Contains("+"))
                                 {
                                     re5 = "+" + re5.Substring(2);
                                 }
-                                else if (!re5.ToString().Contains("-") & re5 != null)
+                                else if (re5 != null && !re5.ToString().Contains("-"))
                                 {
                                     re5 = "-" + re5.Substring(2);
                                 }
-                                if (!re6.ToString().Contains("+") & re6 != null)
+                                if (re6 != null && !re6.ToString().Contains("+"))
                                 {
                                     re6 = "+" + re6;
                                 }
-                                else if (!re6.ToString().Contains("-") & re6 != null)
+                                else if (re6 != null && !re6.ToString().Contains("-"))
                                 {
                                     re6 = "-" + re6;
                                 }
@@ -137,9 +137,17 @@ namespace EdgeTTS
                                     response.ContentLength64 = buffer.Length;
                                     response.ContentType = "audio/" + re3.ToString().ToLower();
 
-                                    System.IO.Stream output = response.OutputStream;
-                                    output.Write(buffer, 0, buffer.Length);
-                                    output.Close();
+                                    // Try to write the file to the response stream, if it fails, output the error.
+                                    try
+                                    {
+                                        System.IO.Stream output = response.OutputStream;
+                                        output.Write(buffer, 0, buffer.Length);
+                                        output.Close();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine($"Error: {ex.Message}");
+                                    }
 
                                     File.Delete(current_file_name);
                                 }
