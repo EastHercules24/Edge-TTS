@@ -82,6 +82,32 @@ namespace EdgeTTS
                                     re6 = "+0Hz";
                                 }
 
+                                // If the queries doesn't start with a + or a -, then add them.
+                                if (!re4.ToString().Contains("+"))
+                                {
+                                    re4 = "+" + re4;
+                                } 
+                                else if (!re4.ToString().Contains("-"))
+                                {
+                                    re4 = "-" + re4;
+                                }
+                                if (!re5.ToString().Contains("+"))
+                                {
+                                    re5 = "+" + re5;
+                                } 
+                                else if (!re5.ToString().Contains("-"))
+                                {
+                                    re5 = "-" + re5;
+                                }
+                                if (!re6.ToString().Contains("+"))
+                                {
+                                    re6 = "+" + re6;
+                                } 
+                                else if (!re6.ToString().Contains("-"))
+                                {
+                                    re6 = "-" + re6;
+                                }
+
                                 // Output of the received queries.
                                 Console.WriteLine("Text: " + re1 + "\nVoice: " + re2 + "\nFiletype: " + re3);
 
