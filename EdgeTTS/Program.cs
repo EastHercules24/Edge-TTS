@@ -56,6 +56,32 @@ namespace EdgeTTS
                                 var re5 = request.QueryString["volume"];
                                 var re6 = request.QueryString["pitch"];
 
+                                // If the queries doesn't start with a + or a -, then add them.
+                                if (!re4.ToString().Contains("+") & re4 != null)
+                                {
+                                    re4 = "+" + re4.Substring(2);
+                                }
+                                else if (!re4.ToString().Contains("-") & re4 != null)
+                                {
+                                    re4 = "-" + re4.Substring(2);
+                                }
+                                if (!re5.ToString().Contains("+") & re5 != null)
+                                {
+                                    re5 = "+" + re5.Substring(2);
+                                }
+                                else if (!re5.ToString().Contains("-") & re5 != null)
+                                {
+                                    re5 = "-" + re5.Substring(2);
+                                }
+                                if (!re6.ToString().Contains("+") & re6 != null)
+                                {
+                                    re6 = "+" + re6;
+                                }
+                                else if (!re6.ToString().Contains("-") & re6 != null)
+                                {
+                                    re6 = "-" + re6;
+                                }
+
                                 // If one or more queries wasn't given, then give a default.
                                 if (re1 == null)
                                 {
@@ -80,32 +106,6 @@ namespace EdgeTTS
                                 if (re6 == null)
                                 {
                                     re6 = "+0Hz";
-                                }
-                                
-                                // If the queries doesn't start with a + or a -, then add them.
-                                if (!re4.ToString().Contains("+"))
-                                {
-                                    re4 = "+" + re4.Substring(2);
-                                } 
-                                else if (!re4.ToString().Contains("-"))
-                                {
-                                    re4 = "-" + re4.Substring(2);
-                                }
-                                if (!re5.ToString().Contains("+"))
-                                {
-                                    re5 = "+" + re5.Substring(2);
-                                } 
-                                else if (!re5.ToString().Contains("-"))
-                                {
-                                    re5 = "-" + re5.Substring(2);
-                                }
-                                if (!re6.ToString().Contains("+"))
-                                {
-                                    re6 = "+" + re6;
-                                } 
-                                else if (!re6.ToString().Contains("-"))
-                                {
-                                    re6 = "-" + re6;
                                 }
 
                                 // Output of the received queries.
