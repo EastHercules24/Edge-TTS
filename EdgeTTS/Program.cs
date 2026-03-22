@@ -81,7 +81,7 @@ namespace EdgeTTS
                                 {
                                     re6 = "+0Hz";
                                 }
-
+                                
                                 // If the queries doesn't start with a + or a -, then add them.
                                 if (!re4.ToString().Contains("+"))
                                 {
