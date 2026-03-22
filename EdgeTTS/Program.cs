@@ -101,11 +101,11 @@ namespace EdgeTTS
                                 }
                                 if (!re6.ToString().Contains("+"))
                                 {
-                                    re6 = "+" + re6.Substring(2);
+                                    re6 = "+" + re6;
                                 } 
                                 else if (!re6.ToString().Contains("-"))
                                 {
-                                    re6 = "-" + re6.Substring(2);
+                                    re6 = "-" + re6;
                                 }
 
                                 // Output of the received queries.
