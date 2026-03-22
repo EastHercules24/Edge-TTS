@@ -85,27 +85,27 @@ namespace EdgeTTS
                                 // If the queries doesn't start with a + or a -, then add them.
                                 if (!re4.ToString().Contains("+"))
                                 {
-                                    re4 = "+" + re4;
+                                    re4 = "+" + re4.Substring(2);
                                 } 
                                 else if (!re4.ToString().Contains("-"))
                                 {
-                                    re4 = "-" + re4;
+                                    re4 = "-" + re4.Substring(2);
                                 }
                                 if (!re5.ToString().Contains("+"))
                                 {
-                                    re5 = "+" + re5;
+                                    re5 = "+" + re5.Substring(2);
                                 } 
                                 else if (!re5.ToString().Contains("-"))
                                 {
-                                    re5 = "-" + re5;
+                                    re5 = "-" + re5.Substring(2);
                                 }
                                 if (!re6.ToString().Contains("+"))
                                 {
-                                    re6 = "+" + re6;
+                                    re6 = "+" + re6.Substring(2);
                                 } 
                                 else if (!re6.ToString().Contains("-"))
                                 {
-                                    re6 = "-" + re6;
+                                    re6 = "-" + re6.Substring(2);
                                 }
 
                                 // Output of the received queries.
