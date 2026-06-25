@@ -14,7 +14,7 @@
 <code>&proxy=...</code>
 
 <h2>For Linux Users:</h2>
-<h>Ok so... this is crazy to say but I found a way to run this program on linux wiht proton. Download this: </h>
+<h>Ok so... this is crazy to say but I found a way to run this program on linux with proton. Download this: </h>
 <p>https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-10.0.5-windows-x64-installer</p>
 <p>Then download faugus launcher (I have tried other launchers like umu launcher, they didn't work) and install .net 10</p>
 <p>Then execute the program and it works. On other launchers and on Wine I got a memory error saying that I was attempting to read or write protected memory.</p>
