@@ -131,7 +131,8 @@ namespace EdgeTTS
                                 // Check if file is being used by the tts.
                                 bool fileInUse = IsFileInUse(current_file_name);
 
-                                Console.Write("Wait untill ready.");
+                                Console.Write("Wait untilready.");
+                                
                                 while (fileInUse)
                                 {
                                     fileInUse = IsFileInUse(current_file_name);
